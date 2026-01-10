@@ -1,0 +1,29 @@
+---
+import type { IconType } from "react-icons";
+
+export interface Props {
+    Icon: IconType;
+    socialMedia: string;
+    handle: string;
+    url: string;
+}
+const { Icon, socialMedia, handle, url } = Astro.props;
+---
+
+<div class="flex items-start gap-4 group">
+    <div
+        class="w-10 h-10 border-2 border-[#2c2416] bg-[#faf8f3] flex items-center justify-center"
+    >
+        <Icon size={32} />
+    </div>
+    <div>
+        <div class="text-xs text-[#8b6f47] mb-1 uppercase">{socialMedia}</div>
+        <a
+            href={url}
+            target="_blank"
+            class="text-[#2c2416] hover:text-[#8b6f47] transition-colors"
+        >
+            {handle}
+        </a>
+    </div>
+</div>

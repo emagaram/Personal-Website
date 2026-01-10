@@ -1,0 +1,76 @@
+---
+import type { Props as ProjectProps } from "./Project.astro";
+import stopSpendCard from "../../../assets/StopSpendCard.png";
+import Project from "./Project.astro";
+import SectionHeader from "../SectionHeader.astro";
+import type { Props as HeaderProps } from "../SectionHeader.astro";
+import type { HomeSection } from "../../../types";
+export interface Props extends HomeSection {}
+const { sectionNumber } = Astro.props;
+const projects: Omit<ProjectProps, "index">[] = [
+    {
+        title: "StopSpend.com",
+        image: stopSpendCard,
+        imageAlt: "",
+        description:
+            'A web app designed to help compulsive shoppers and gamblers reduce or end spending entirely. The app accomplishes this by notifying users\' "supporters" via text message whenever they overspend.',
+        technologies: [
+            "Next.js",
+            "Node.js",
+            "Bootstrap",
+            "Figma",
+            "GCP",
+            "Firebase",
+        ],
+        links: [
+            {
+                type: "github",
+                url: "",
+            },
+        ],
+    },
+    {
+        title: "File Translation Web App",
+        image: stopSpendCard,
+        imageAlt: "",
+        description:
+            "When I worked at Cisco Meraki, I built a web app that functions similarly to Google Translate but instead of translating languages, it translated file formats. I collaborated with my own team as well as the UI/UX and security teams to develop this web app which is still being used in production. In addition to coding both the frontend and backend for this application, I also designed the web app in Figma.",
+        technologies: [
+            "Next.js",
+            "Node.js",
+            "Bootstrap",
+            "Figma",
+            "GCP",
+            "Firebase",
+        ],
+        links: [],
+    },
+    {
+        title: "T9 Keyboard Combanitoric Solver",
+        image: stopSpendCard,
+        imageAlt: "",
+        description:
+            "Developed two algorithms to optimize a 14-key T9 predictive text keyboard layout: a Rust combinatorial search and a Python parallelized genetic algorithm that improved ergonomic metrics and increased prediction accuracy from 93% to 99.4%.",
+        technologies: [
+            "Next.js",
+            "Node.js",
+            "Bootstrap",
+            "Figma",
+            "GCP",
+            "Firebase",
+        ],
+        links: [],
+    },
+];
+---
+
+<section>
+    <SectionHeader sectionNumber={sectionNumber} title={"Projects"} />
+    <ol class="flex flex-col md:grid grid-cols-3 gap-12 md:gap-10 list-inside">
+        {
+            projects.map((project, index) => (
+                <Project {...project} index={index} />
+            ))
+        }
+    </ol>
+</section>

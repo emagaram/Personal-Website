@@ -1,0 +1,36 @@
+---
+export interface Props {
+    sectionNumber: number;
+    title: string;
+}
+const { sectionNumber, title }: Props = Astro.props;
+---
+
+---
+<div class="mb-12">
+    <div class="flex items-baseline gap-4">
+        <h2 class="text-4xl">{title}</h2>
+        <span class="text-sm opacity-50 uppercase tracking-wider"
+            >Section {String(sectionNumber).padStart(2, "0")}</span
+        >
+    </div>
+
+    {/* Section marker */}
+    <svg class="absolute -top-4 -left-8 w-6 h-6 opacity-30">
+        <circle cx="3" cy="3" r="2" fill="#2c2416"></circle>
+        <line
+            x1="3"
+            y1="3"
+            x2="20"
+            y2="20"
+            stroke="#2c2416"
+            stroke-width="0.5"
+            stroke-dasharray="2,2"></line>
+    </svg>
+
+    <div class="mt-2 h-px bg-[#2c2416]/20 relative">
+        <div class="absolute right-0 top-1 text-xs opacity-40">
+            {new Date().toLocaleDateString()}
+        </div>
+    </div>
+</div>

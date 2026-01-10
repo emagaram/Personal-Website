@@ -1,0 +1,27 @@
+---
+import { Image } from "astro:assets";
+// 3024 × 4032
+import profImage from "../../assets/hero_profile.webp";
+---
+
+<div class="relative">
+    <div class="flex flex-col md:flex-row-reverse gap-4">
+        <Image
+            class="self-center w-90"
+            src={profImage}
+            alt="Ezra with a snowboard."
+        />
+        <div class="flex flex-col justify-center gap-3">
+            <h1 class="text-5xl font-extrabold">Hi, I'm Ezra.</h1>
+            <p class="text-xl">
+                I'm a Full-Stack Engineer that enjoys designing elegant UI
+                solutions and finding ways to make things fast.
+            </p>
+            <p class="text-xl">
+                Also, I recommend thawing frozen fruit instead of buying fresh
+                (if you can handle the mushiness). It's cheaper and often has
+                more nutrients.
+            </p>
+        </div>
+    </div>
+</div>

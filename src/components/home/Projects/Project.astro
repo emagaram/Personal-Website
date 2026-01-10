@@ -1,0 +1,199 @@
+---
+import { Image } from "astro:assets";
+import type { IconType } from "react-icons";
+import { FaExternalLinkAlt } from "react-icons/fa";
+import { FiGithub } from "react-icons/fi";
+import { GrDocumentText } from "react-icons/gr";
+import { LuVideo } from "react-icons/lu";
+
+const LINK_ID = {
+    GITHUB: "github",
+    LIVE: "live",
+    VIDEO: "video",
+    BLOG: "blog",
+} as const;
+
+type LinkId = (typeof LINK_ID)[keyof typeof LINK_ID];
+
+const LINK_INFO: Record<LinkId, LinkType> = {
+    [LINK_ID.GITHUB]: {
+        Icon: FiGithub,
+        name: "Github",
+    },
+    [LINK_ID.LIVE]: {
+        Icon: FaExternalLinkAlt,
+        name: "Live",
+    },
+    [LINK_ID.VIDEO]: {
+        Icon: LuVideo,
+        name: "Video",
+    },
+    [LINK_ID.BLOG]: {
+        Icon: GrDocumentText,
+        name: "Blog",
+    },
+};
+
+interface LinkType {
+    name: string;
+    Icon: IconType;
+}
+
+interface Link {
+    type: LinkId;
+    url: string;
+}
+
+export interface Props {
+    image: ImageMetadata;
+    imageAlt: string;
+    title: string;
+    description: string;
+    technologies: string[];
+    index: number;
+    links: Link[];
+}
+
+const {
+    image,
+    imageAlt,
+    title,
+    description,
+    technologies,
+    index,
+    links,
+}: Props = Astro.props;
+---
+
+<>
+    <li
+        class="flex flex-col gap-4 border-2 border-black bg-paper-100 p-6 h-full
+                            hover:shadow-[6px_6px_0px_rgba(44,36,22,0.3)]
+                            transition-all duration-300
+                            hover:-translate-y-1
+                            will-change-transform
+                            backface-visibility-hidden"
+    >
+        <div class="absolute -top-9 -left-3 text-6xl opacity-10 z-0">
+            {String(index + 1).padStart(2, "0")}
+        </div>
+        {/* Project Image */}
+        <div
+            class="mb-4 relative border-2 border-zinc-900 overflow-hidden bg-paper-300 group/image"
+        >
+            <div class="aspect-video relative">
+                <Image
+                    src={image}
+                    alt={imageAlt}
+                    class="w-full h-full object-cover grayscale-30 sepia-20 contrast-[1.1] opacity-90"
+                />
+                {/* Blueprint overlay grid */}
+                <div
+                    class="absolute inset-0 opacity-20 pointer-events-none bg-[linear-gradient(to_right,var(--color-ink)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-ink),transparent_1px)] bg-size-[10px_10px]"
+                >
+                </div>
+                {/* Corner measurements */}
+                <div
+                    class="absolute top-2 left-2 border-l-2 border-t-2 border-amber-900 w-6 h-6 opacity-60"
+                >
+                </div>
+                <div
+                    class="absolute top-2 right-2 border-r-2 border-t-2 border-amber-900 w-6 h-6 opacity-60"
+                >
+                </div>
+                <div
+                    class="absolute bottom-2 left-2 border-l-2 border-b-2 border-amber-900 w-6 h-6 opacity-60"
+                >
+                </div>
+                <div
+                    class="absolute bottom-2 right-2 border-r-2 border-b-2 border-amber-900 w-6 h-6 opacity-60"
+                >
+                </div>
+
+                {/* Image label */}
+                <div
+                    class="absolute bottom-2 left-1/2 -translate-x-1/2 bg-paper-100 border border-ink px-2 py-1 text-xs opacity-70"
+                >
+                    FIG. {index + 1}
+                </div>
+            </div>
+        </div>
+        <div class="text-xl font-semibold relative">
+            <h3 class="mb-2">
+                {title}
+            </h3>
+            <svg class="absolute left-0 -bottom-1 w-24 h-2" viewBox="0 0 96 8">
+                <path
+                    d="M 0 4 L 96 4"
+                    stroke="#8b6f47"
+                    stroke-width="2"
+                    fill="none"
+                    opacity="0.4"></path>
+                <path
+                    d="M 0 6 L 96 6"
+                    stroke="#8b6f47"
+                    stroke-width="1"
+                    fill="none"
+                    opacity="0.2"></path>
+            </svg>
+        </div>
+        <div class="leading-relaxed">{description}</div>
+        <div>
+            <div class="color opacity-70 text-[#8b6f47] text-xs">
+                TECH STACK
+            </div>
+            <div class="flex flex-wrap gap-2">
+                {
+                    technologies.map((technology) => (
+                        <div class="border px-2 py-1 bg-paper-dim text-[#4a3d2a]">
+                            {technology}
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+        <!-- <button
+            class="w-full border-2 border-ink py-2
+                                 hover:bg-ink hover:text-paper-100 transition-colors
+                                 flex items-center justify-center gap-2 cursor-pointer"
+        >
+            <span>VIEW PROJECT</span>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path
+                    d="M 6 4 L 10 8 L 6 12"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+            </svg>
+        </button> -->
+        {
+            links.length > 0 && (
+                <div class="mt-auto flex flex-wrap gap-3 pt-4 border-t border-[#2c2416]/10">
+                    {links.map((link) => {
+                        switch (link.type) {
+                            case "video":
+                                return <button>Video</button>;
+                            case "blog":
+                            case "github":
+                            case "live":
+                                let Icon = LINK_INFO[link.type].Icon;
+                                let name = LINK_INFO[link.type].name;
+                                return (
+                                    <a
+                                        target="_blank"
+                                        href={link.url}
+                                        rel="noopener noreferrer"
+                                        class="flex items-center gap-2 text-sm px-3 py-2 border border-[#2c2416]/30 hover:bg-[#2c2416]/5 transition-colors"
+                                    >
+                                        <Icon size={16} />
+                                        <span>{name}</span>
+                                    </a>
+                                );
+                        }
+                    })}
+                </div>
+            )
+        }
+    </li>
+</>

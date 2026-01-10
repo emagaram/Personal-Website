@@ -1,0 +1,176 @@
+---
+import { FaLinkedin } from "react-icons/fa";
+import type { HomeSection } from "../../../types";
+import SectionHeader from "../SectionHeader.astro";
+import Social from "./Social.astro";
+import { FaSquareGithub, FaSquareUpwork } from "react-icons/fa6";
+import { MdEmail } from "react-icons/md";
+import Form from "./Form.astro";
+
+interface Props extends HomeSection {}
+const { sectionNumber } = Astro.props;
+---
+
+<section class="relative px-2 sm:px-0">
+    <SectionHeader sectionNumber={sectionNumber} title={"Get In Touch"} />
+    <div>
+        {/* Annotation */}
+        <!-- <div
+            class="absolute top-20 right-20 hidden lg:block -rotate-6"
+            style={{ fontFamily: "'Caveat', cursive" }}
+        >
+            <p class="text-[#8b6f47]">Let's connect!</p>
+            <svg
+                width="120"
+                height="50"
+                viewBox="0 0 120 50"
+                class="text-[#8b6f47]"
+            >
+                <path
+                    d="M 10 40 Q 40 10, 70 30 T 110 25"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    fill="none"></path>
+                <polygon points="106,22 113,25 107,28" fill="currentColor"
+                ></polygon>
+            </svg>
+        </div> -->
+
+        <div class="grid lg:grid-cols-2 gap-12">
+            {/* Left side - contact info */}
+            <div class="space-y-6">
+                <div class="border-2 p-6 bg-paper-dim relative">
+                    {/* Corner bracket */}
+                    <div
+                        class="absolute -top-3 -left-3 w-8 h-8 border-t-4 border-l-4 border-[#8b6f47]"
+                    >
+                    </div>
+                    <div
+                        class="absolute -bottom-3 -right-3 w-8 h-8 border-b-4 border-r-4 border-[#8b6f47]"
+                    >
+                    </div>
+
+                    <p class="text-[#4a3d2a] mb-6 leading-relaxed">
+                        I'm always interested in hearing about new projects and
+                        opportunities. Whether you have a question or just want
+                        to say hi, feel free to reach out!
+                    </p>
+
+                    <div class="space-y-4">
+                        <Social
+                            Icon={MdEmail}
+                            socialMedia="Email"
+                            handle="ezra@ezramagaram.com"
+                            url="mailto:ezra@ezramagaram.com"
+                        />
+                        <Social
+                            Icon={FaLinkedin}
+                            socialMedia="LinkedIn"
+                            handle="/in/ezra-magaram"
+                            url="https://www.linkedin.com/in/ezra-magaram/"
+                        />
+                        <Social
+                            Icon={FaSquareGithub}
+                            handle="@emagaram"
+                            socialMedia="Github"
+                            url="https://github.com/emagaram"
+                        />
+                        <Social
+                            Icon={FaSquareUpwork}
+                            handle="ezra-magaram"
+                            socialMedia="Upwork"
+                            url="https://www.upwork.com/freelancers/ezramagaram"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            {/* Right side - contact form */}
+            <Form />
+        </div>
+
+        <!-- {/* Footer */}
+        <div class="mt-24 pt-12 border-t-2 border-dashed border-[#8b6f47]">
+            <div
+                class="flex flex-col md:flex-row items-center justify-between gap-6"
+            >
+                {/* Logo/Name */}
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-12 h-12 border-2 border-[#2c2416] bg-paper-dim flex items-center justify-center"
+                    >
+                        <span> AM </span>
+                    </div>
+                    <div>
+                        <div>Alex Morgan</div>
+                        <div class="text-xs text-[#8b6f47]">
+                            SOFTWARE ENGINEER
+                        </div>
+                    </div>
+                </div>
+
+                {/* Copyright */}
+                <div class="text-[#8b6f47] text-sm">
+                    © 2024 · Designed & Built by Alex Morgan
+                </div>
+
+                {/* Blueprint reference number */}
+                <div
+                    class="border border-[#8b6f47] px-4 py-2 bg-[#faf8f3] opacity-50"
+                >
+                    <span
+                        class="text-xs text-[#8b6f47]"
+                        style={{
+                            fontFamily: "'JetBrains Mono', monospace",
+                        }}
+                    >
+                        REF: AM-2024-WEB-v2.0
+                    </span>
+                </div>
+            </div>
+
+            {/* Final sketch decoration */}
+            <div class="mt-12 flex justify-center opacity-20">
+                <svg
+                    width="200"
+                    height="40"
+                    viewBox="0 0 200 40"
+                    class="text-[#8b6f47]"
+                >
+                    <line
+                        x1="0"
+                        y1="20"
+                        x2="200"
+                        y2="20"
+                        stroke="currentColor"
+                        stroke-width="1"></line>
+                    <circle
+                        cx="20"
+                        cy="20"
+                        r="8"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        fill="none"></circle>
+                    <circle
+                        cx="100"
+                        cy="20"
+                        r="8"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        fill="none"></circle>
+                    <circle
+                        cx="180"
+                        cy="20"
+                        r="8"
+                        stroke="currentColor"
+                        stroke-width="1"
+                        fill="none"></circle>
+                    <path
+                        d="M 20 12 L 20 28 M 100 12 L 100 28 M 180 12 L 180 28"
+                        stroke="currentColor"
+                        stroke-width="1"></path>
+                </svg>
+            </div>
+        </div> -->
+    </div>
+</section>
