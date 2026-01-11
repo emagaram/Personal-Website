@@ -172,7 +172,7 @@ const {
         {
             links.length > 0 && (
                 <div class="mt-auto flex flex-wrap gap-3 pt-4 border-t border-ink/10">
-                    {links.map((link) => {
+                    {links.sort().map((link) => {
                         let Icon = LINK_INFO[link.type].Icon;
                         let name = LINK_INFO[link.type].name;
                         return (
