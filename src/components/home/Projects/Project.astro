@@ -22,7 +22,7 @@ const LINK_INFO: Record<LinkId, LinkType> = {
     },
     [LINK_ID.LIVE]: {
         Icon: FaExternalLinkAlt,
-        name: "Live",
+        name: "View",
     },
     [LINK_ID.VIDEO]: {
         Icon: LuVideo,
@@ -139,16 +139,18 @@ const {
         </div>
         <div class="leading-relaxed">{description}</div>
         <div>
-            <div class="color opacity-70 text-[#8b6f47] text-xs">
+            <div class="color opacity-70 text-[#8b6f47] text-xs mb-1">
                 TECH STACK
             </div>
             <div class="flex flex-wrap gap-2">
                 {
-                    technologies.map((technology) => (
-                        <div class="border px-2 py-1 bg-paper-dim text-[#4a3d2a]">
-                            {technology}
-                        </div>
-                    ))
+                    technologies
+                        .sort()
+                        .map((technology) => (
+                            <div class="border px-2 py-1 bg-paper-dim text-[#4a3d2a]">
+                                {technology}
+                            </div>
+                        ))
                 }
             </div>
         </div>

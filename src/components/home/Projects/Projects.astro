@@ -1,6 +1,9 @@
 ---
 import type { Props as ProjectProps } from "./Project.astro";
-import stopSpendCard from "../../../assets/StopSpendCard.png";
+import stopSpendImg from "../../../assets/stopspend-card.png";
+import fileTranslationImg from "../../../assets/file-translation-web-app.png";
+import t9OptimizerImg from "../../../assets/t9-optimizer.png";
+
 import Project from "./Project.astro";
 import SectionHeader from "../SectionHeader.astro";
 import type { Props as HeaderProps } from "../SectionHeader.astro";
@@ -10,8 +13,8 @@ const { sectionNumber } = Astro.props;
 const projects: Omit<ProjectProps, "index">[] = [
     {
         title: "StopSpend.com",
-        image: stopSpendCard,
-        imageAlt: "",
+        image: stopSpendImg,
+        imageAlt: "Github screenshot of project",
         description:
             'A web app designed to help compulsive shoppers and gamblers reduce or end spending entirely. The app accomplishes this by notifying users\' "supporters" via text message whenever they overspend.',
         technologies: [
@@ -21,52 +24,48 @@ const projects: Omit<ProjectProps, "index">[] = [
             "Figma",
             "GCP",
             "Firebase",
+            "NoSQL",
         ],
         links: [
             {
+                type: "live",
+                url: "https://www.stopspend.com/",
+            },
+            {
                 type: "github",
-                url: "",
+                url: "https://github.com/emagaram/StopSpendFrontend",
             },
         ],
     },
     {
         title: "File Translation Web App",
-        image: stopSpendCard,
+        image: fileTranslationImg,
         imageAlt: "",
         description:
             "When I worked at Cisco Meraki, I built a web app that functions similarly to Google Translate but instead of translating languages, it translated file formats. I collaborated with my own team as well as the UI/UX and security teams to develop this web app which is still being used in production. In addition to coding both the frontend and backend for this application, I also designed the web app in Figma.",
-        technologies: [
-            "Next.js",
-            "Node.js",
-            "Bootstrap",
-            "Figma",
-            "GCP",
-            "Firebase",
-        ],
+        technologies: ["React", "Figma", "Ruby", "Rails", "PostgreSQL"],
         links: [],
     },
     {
         title: "T9 Keyboard Combanitoric Solver",
-        image: stopSpendCard,
-        imageAlt: "",
+        image: t9OptimizerImg,
+        imageAlt: "Github screenshot of project",
         description:
             "Developed two algorithms to optimize a 14-key T9 predictive text keyboard layout: a Rust combinatorial search and a Python parallelized genetic algorithm that improved ergonomic metrics and increased prediction accuracy from 93% to 99.4%.",
-        technologies: [
-            "Next.js",
-            "Node.js",
-            "Bootstrap",
-            "Figma",
-            "GCP",
-            "Firebase",
+        technologies: ["Rust", "Python", "AWS EC2"],
+        links: [
+            {
+                type: "github",
+                url: "https://github.com/emagaram/T9-Combinatoric-Solver",
+            },
         ],
-        links: [],
     },
 ];
 ---
 
 <section>
     <SectionHeader sectionNumber={sectionNumber} title={"Projects"} />
-    <ol class="flex flex-col md:grid grid-cols-3 gap-12 md:gap-10 list-inside">
+    <ol class="flex flex-col xl:grid grid-cols-3 gap-12 xl:gap-10 list-inside">
         {
             projects.map((project, index) => (
                 <Project {...project} index={index} />
