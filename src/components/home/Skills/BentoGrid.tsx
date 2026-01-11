@@ -1,5 +1,5 @@
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 // TODO upgrade to motion
 import { motion, AnimatePresence } from "framer-motion"
 import { X } from "lucide-react"
@@ -327,6 +327,17 @@ export function Techbox(skill: RenderedSkill, gridClass: string, onClick: (s: Re
 
 export function TechBentoGrid() {
   const [selectedSkill, setSelectedSkill] = useState<(RenderedSkill | null)>(null)
+  useEffect(() => {
+    if (selectedSkill) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [selectedSkill]);
   return (
     <>
       <div className="hidden md:grid grid-cols-8 auto-rows-[80px] gap-3 mx-auto">
