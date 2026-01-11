@@ -11,7 +11,7 @@ import db from "@astrojs/db";
 // https://astro.build/config
 export default defineConfig({
   output: 'server',
-  adapter: vercel(),
+  adapter: vercel({ imageService: true }),
   vite: {
     plugins: [tailwindcss()],
   },
