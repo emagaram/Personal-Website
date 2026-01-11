@@ -12,7 +12,7 @@ const { Icon, socialMedia, handle, url } = Astro.props;
 
 <div class="flex items-start gap-4 group">
     <div
-        class="w-10 h-10 border-2 border-[#2c2416] bg-[#faf8f3] flex items-center justify-center"
+        class="w-10 h-10 border-2 border-ink bg-paper-100 flex items-center justify-center"
     >
         <Icon size={32} />
     </div>
@@ -21,7 +21,7 @@ const { Icon, socialMedia, handle, url } = Astro.props;
         <a
             href={url}
             target="_blank"
-            class="text-[#2c2416] hover:text-[#8b6f47] transition-colors"
+            class="text-ink hover:text-[#8b6f47] transition-colors"
         >
             {handle}
         </a>
