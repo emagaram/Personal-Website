@@ -12,7 +12,8 @@ import db from "@astrojs/db";
 export default defineConfig({
   output: 'static',
   adapter: vercel({
-    imageService: true, webAnalytics: {
+    imageService: true,
+    webAnalytics: {
       enabled: true,
     },
   }),
