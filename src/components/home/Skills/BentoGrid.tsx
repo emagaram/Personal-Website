@@ -63,7 +63,7 @@ export interface Technology {
   name: string;
   icon: any;
   description: React.ReactNode;
-  size: string; // TODO make size enum
+  size: SkillSize;
 }
 
 export interface Juggling {
@@ -72,10 +72,12 @@ export interface Juggling {
   name: string;
   icon: any;
   description: string;
-  size: string; // TODO make size enum
+  size: SkillSize
 }
 
 type Skill = Technology | Juggling
+
+type SkillSize = "large" | "regular"
 
 export const SKILLS: Record<SkillId, Skill> = {
   [SKILL_ID.REACT]: {
@@ -92,7 +94,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "Next.js",
     icon: <SiNextdotjs size="100%" />,
     description: <Nextjs />,
-    size: "medium",
+    size: "large",
   },
   [SKILL_ID.HTML]: {
     type: "technology",
@@ -100,7 +102,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "HTML",
     icon: <SiHtml5 size="100%" />,
     description: <HTML />,
-    size: "small",
+    size: "regular",
   },
   [SKILL_ID.CSS]: {
     type: "technology",
@@ -108,7 +110,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "CSS",
     icon: <SiCss3 size="100%" />,
     description: <CSS />,
-    size: "tall",
+    size: "regular",
   },
   [SKILL_ID.TYPESCRIPT]: {
     type: "technology",
@@ -116,7 +118,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "TypeScript",
     icon: <SiTypescript size="100%" />,
     description: <TypeScript />,
-    size: "medium",
+    size: "large",
   },
   [SKILL_ID.NODEJS]: {
     type: "technology",
@@ -124,7 +126,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "Node.js",
     icon: <SiNodedotjs size="100%" />,
     description: <Nodejs />,
-    size: "medium",
+    size: "regular",
   },
   [SKILL_ID.GIT]: {
     type: "technology",
@@ -132,7 +134,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "Git",
     icon: <SiGit size="100%" />,
     description: <Git />,
-    size: "small",
+    size: "regular",
   },
   [SKILL_ID.PYTHON]: {
     type: "technology",
@@ -140,7 +142,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "Python",
     icon: <SiPython size="100%" />,
     description: <Python />,
-    size: "small",
+    size: "large",
   },
   [SKILL_ID.SQL]: {
     type: "technology",
@@ -148,7 +150,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "SQL",
     icon: <SiPostgresql size="100%" />,
     description: <SQL />,
-    size: "small",
+    size: "regular",
   },
   [SKILL_ID.AWS]: {
     type: "technology",
@@ -156,7 +158,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "AWS",
     icon: <FaAws size="100%" />,
     description: <AWS />,
-    size: "small",
+    size: "regular",
   },
   [SKILL_ID.GCP]: {
     type: "technology",
@@ -164,7 +166,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "GCP",
     icon: <SiGooglecloud size="100%" />,
     description: <GCP />,
-    size: "small",
+    size: "regular",
   },
   [SKILL_ID.FIGMA]: {
     type: "technology",
@@ -172,7 +174,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "Figma",
     icon: <SiFigma size="100%" />,
     description: <Figma />,
-    size: "small",
+    size: "regular",
   },
   [SKILL_ID.ASTRO]: {
     type: "technology",
@@ -180,7 +182,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "Astro",
     icon: <SiAstro size="100%" />,
     description: <Astro />,
-    size: "small",
+    size: "regular",
   },
   [SKILL_ID.RUST]: {
     type: "technology",
@@ -188,7 +190,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "Rust",
     icon: <SiRust size="100%" />,
     description: <Rust />,
-    size: "small"
+    size: "regular"
   },
   [SKILL_ID.CPP]: {
     type: "technology",
@@ -196,7 +198,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "C++",
     icon: <TbBrandCpp size="100%" />,
     description: <CPP />,
-    size: "small"
+    size: "regular"
   },
   [SKILL_ID.JUGGLING]: {
     type: "juggling",
@@ -204,7 +206,7 @@ export const SKILLS: Record<SkillId, Skill> = {
     name: "Juggling",
     icon: <FaBasketballBall size="100%" />,
     description: "Fun skill",
-    size: "small"
+    size: "regular"
   },
 };
 
@@ -234,15 +236,15 @@ const LAYOUT_ORDERS: { [k: string]: { tech: Skill, gridClass: string }[] } = {
     { tech: SKILLS[SKILL_ID.FIGMA], gridClass: "col-span-2 row-span-3" },
     { tech: SKILLS[SKILL_ID.GIT], gridClass: "col-span-1 row-span-1" },
     { tech: SKILLS[SKILL_ID.TYPESCRIPT], gridClass: "col-span-5 row-span-3" },
-    { tech: SKILLS[SKILL_ID.SQL], gridClass: "col-span-2 row-span-3" },
-    { tech: SKILLS[SKILL_ID.NEXTJS], gridClass: "col-span-1 row-span-2" },
+    { tech: SKILLS[SKILL_ID.NEXTJS], gridClass: "col-span-2 row-span-3" },
+    { tech: SKILLS[SKILL_ID.SQL], gridClass: "col-span-1 row-span-2" },
     { tech: SKILLS[SKILL_ID.RUST], gridClass: "col-span-2 row-span-3" },
     { tech: SKILLS[SKILL_ID.PYTHON], gridClass: "col-span-4 row-span-3" },
     { tech: SKILLS[SKILL_ID.CPP], gridClass: "col-span-2 row-span-2" },
     { tech: SKILLS[SKILL_ID.ASTRO], gridClass: "col-span-2 row-span-2" },
-    { tech: SKILLS[SKILL_ID.GCP], gridClass: "col-span-2 row-span-2" },
+    { tech: SKILLS[SKILL_ID.GCP], gridClass: "col-span-1 row-span-2" },
     { tech: SKILLS[SKILL_ID.AWS], gridClass: "col-span-3 row-span-2" },
-    { tech: SKILLS[SKILL_ID.NODEJS], gridClass: "col-span-1 row-span-2" },
+    { tech: SKILLS[SKILL_ID.NODEJS], gridClass: "col-span-2 row-span-2" },
     { tech: SKILLS[SKILL_ID.JUGGLING], gridClass: "hidden col-span-6 row-span-2 bg-green-600 text-white" },
   ]
 };
@@ -299,7 +301,7 @@ export function Techbox(skill: RenderedSkill, gridClass: string, onClick: (s: Re
       <motion.div
         layoutId={`${skill.id}-icon`}
         className={`
-              ${skill.size === "large" ? "w-16 h-16" : skill.size === "tall" || skill.size === "medium" ? "w-12 h-12" : "w-10 h-10"}
+              ${skill.size === "large" ? "w-16 h-16" : "w-10 h-10"}
               text-foreground group-hover:text-accent transition-colors
             `}
       >
@@ -310,7 +312,7 @@ export function Techbox(skill: RenderedSkill, gridClass: string, onClick: (s: Re
       <motion.span
         layoutId={`${skill.id}-name`}
         className={`
-              ${skill.size === "large" ? "text-lg" : "text-sm"}
+              ${skill.size === "large" ? "text-lg" : "text-base"}
               font-bold uppercase tracking-widest text-foreground group-hover:text-accent transition-colors
             `}
       >
