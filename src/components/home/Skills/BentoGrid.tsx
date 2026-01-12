@@ -331,13 +331,31 @@ export function TechBentoGrid() {
   const [selectedSkill, setSelectedSkill] = useState<(RenderedSkill | null)>(null)
   useEffect(() => {
     if (selectedSkill) {
+      // Prevent scrolling on body and html
       document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+      // Get scroll position before fixing position
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
     } else {
+      // Restore scrolling
       document.body.style.overflow = 'unset';
+      document.documentElement.style.overflow = 'unset';
+      document.body.style.position = 'unset';
+      const scrollY = parseInt(document.body.style.top || '0') * -1;
+      document.body.style.top = 'unset';
+      document.body.style.width = 'unset';
+      window.scrollTo(0, scrollY);
     }
 
     return () => {
       document.body.style.overflow = 'unset';
+      document.documentElement.style.overflow = 'unset';
+      document.body.style.position = 'unset';
+      document.body.style.top = 'unset';
+      document.body.style.width = 'unset';
     };
   }, [selectedSkill]);
   return (
@@ -358,7 +376,7 @@ export function TechBentoGrid() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedSkill(null)}
-              className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm"
+              className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm pointer-events-auto"
             />
 
             {/* Expanded Card/Modal */}
