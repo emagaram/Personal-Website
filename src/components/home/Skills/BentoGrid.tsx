@@ -271,6 +271,8 @@ export function Techbox(skill: RenderedSkill, gridClass: string, onClick: (s: Re
 
   return (
     <motion.button
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
       key={skill.id}
       layoutId={skill.id}
       onClick={() => onClick(skill)}
@@ -331,31 +333,14 @@ export function TechBentoGrid() {
   const [selectedSkill, setSelectedSkill] = useState<(RenderedSkill | null)>(null)
   useEffect(() => {
     if (selectedSkill) {
-      // Prevent scrolling on body and html
       document.body.style.overflow = 'hidden';
-      document.documentElement.style.overflow = 'hidden';
-      // Get scroll position before fixing position
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
     } else {
-      // Restore scrolling
       document.body.style.overflow = 'unset';
-      document.documentElement.style.overflow = 'unset';
-      document.body.style.position = 'unset';
-      const scrollY = parseInt(document.body.style.top || '0') * -1;
-      document.body.style.top = 'unset';
-      document.body.style.width = 'unset';
-      window.scrollTo(0, scrollY);
+
     }
 
     return () => {
       document.body.style.overflow = 'unset';
-      document.documentElement.style.overflow = 'unset';
-      document.body.style.position = 'unset';
-      document.body.style.top = 'unset';
-      document.body.style.width = 'unset';
     };
   }, [selectedSkill]);
   return (
@@ -370,111 +355,96 @@ export function TechBentoGrid() {
       <AnimatePresence>
         {selectedSkill && selectedSkill.type === "technology" && (
           <>
+            {/* <div className="fixed top-[99vh] left-0 h-dvh w-dvw bg-black z-50 pointer-events-none"></div> */}
+
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedSkill(null)}
-              className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm pointer-events-auto"
-            />
+              className="fixed inset-0 z-40 bg-foreground/40 backdrop-brightness-90 -top-[30dvh] -bottom-[30dvh]"
+            >
 
-            {/* Expanded Card/Modal */}
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none ">
-              <motion.div
-                layoutId={selectedSkill.id}
-                className="relative w-full max-w-lg bg-paper-100 border-2 border-accent shadow-2xl pointer-events-auto"
-                onClick={(e) => e.stopPropagation()}
-              >
-                {/* Blueprint corner markers - larger for modal */}
-                <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-accent" />
-                <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-accent" />
-                <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-accent" />
-                <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-accent" />
-
-                {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b border-border">
-                  <div className="flex items-center gap-3">
-                    <motion.div
-                      layoutId={`${selectedSkill.id}-icon`}
-                      className="w-10 h-10 flex items-center justify-center text-foreground"
-                    >
-                      {selectedSkill.icon}
-                    </motion.div>
-                    <div>
-                      <motion.h2
-                        layoutId={`${selectedSkill.id}-name`}
-                        className="text-lg font-bold text-foreground uppercase tracking-wider"
-                      >
-                        {selectedSkill.name}
-                      </motion.h2>
-                      <motion.span
-                        layoutId={`${selectedSkill.id}-label`}
-                        className="text-[10px] text-muted-foreground tracking-wider"
-                      >
-                        {selectedSkill.numberLabel}
-                      </motion.span>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => setSelectedSkill(null)}
-                    className="p-1 hover:bg-muted transition-colors ml-4"
-                    aria-label="Close modal"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-
-                {/* Content - fades in after expansion */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="p-4 space-y-4"
+              {/* Expanded Card/Modal */}
+              <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none ">
+                <motion.dialog
+                  open
+                  layoutId={selectedSkill.id}
+                  className="relative w-full max-w-lg bg-paper-100 border-2 border-accent shadow-2xl pointer-events-auto"
+                  onClick={(e) => e.stopPropagation()}
                 >
+                  {/* Blueprint corner markers - larger for modal */}
+                  <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-accent" />
+                  <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-accent" />
+                  <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-accent" />
+                  <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-accent" />
 
-
-                  {/* Description */}
-                  <div>
-                    <h3 className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Description</h3>
-                    <div className="text-sm text-foreground leading-relaxed">{selectedSkill.description}</div>
-                  </div>
-
-                  {/* Projects
-                  <div>
-                    <h3 className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Notable Projects</h3>
-                    <ul className="space-y-1">
-                      {selectedTech.projects.map((project, i) => (
-                        <motion.li
-                          key={i}
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.3 + i * 0.1 }}
-                          className="text-sm text-foreground flex items-center gap-2"
+                  {/* Header */}
+                  <div className="flex items-center justify-between p-4 border-b border-border">
+                    <div className="flex items-center gap-3">
+                      <motion.div
+                        layoutId={`${selectedSkill.id}-icon`}
+                        className="w-10 h-10 flex items-center justify-center text-foreground"
+                      >
+                        {selectedSkill.icon}
+                      </motion.div>
+                      <div>
+                        <motion.h2
+                          layoutId={`${selectedSkill.id}-name`}
+                          className="text-lg font-bold text-foreground uppercase tracking-wider"
                         >
-                          <span className="w-1 h-1 bg-accent" />
-                          {project}
-                        </motion.li>
-                      ))}
-                    </ul>
-                  </div> */}
-                </motion.div>
+                          {selectedSkill.name}
+                        </motion.h2>
+                        <motion.span
+                          layoutId={`${selectedSkill.id}-label`}
+                          className="text-[10px] text-muted-foreground tracking-wider"
+                        >
+                          {selectedSkill.numberLabel}
+                        </motion.span>
+                      </div>
+                    </div>
 
-                {/* Footer annotation */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.2 }}
-                  className="px-4 py-2 border-t border-border border-dashed"
-                >
-                  <p className="text-[10px] text-muted-foreground text-center uppercase tracking-widest">
-                    Technical Details — {selectedSkill.name}
-                  </p>
-                </motion.div>
-              </motion.div>
-            </div>
+                    <button
+                      onClick={() => setSelectedSkill(null)}
+                      className="p-1 hover:bg-muted transition-colors ml-4"
+                      aria-label="Close modal"
+                    >
+                      <X className="w-5 h-5" />
+                    </button>
+                  </div>
+
+                  {/* Content - fades in after expansion */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="p-4 space-y-4"
+                  >
+
+
+                    {/* Description */}
+                    <div>
+                      <h3 className="text-xs text-muted-foreground uppercase tracking-wider mb-2">Description</h3>
+                      <div className="text-sm text-foreground leading-relaxed">{selectedSkill.description}</div>
+                    </div>
+                  </motion.div>
+
+                  {/* Footer annotation */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="px-4 py-2 border-t border-border border-dashed"
+                  >
+                    <p className="text-[10px] text-muted-foreground text-center uppercase tracking-widest">
+                      Technical Details — {selectedSkill.name}
+                    </p>
+                  </motion.div>
+                </motion.dialog>
+              </div>
+            </motion.div>
           </>
         )}
       </AnimatePresence>
