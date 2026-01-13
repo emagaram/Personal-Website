@@ -33,6 +33,9 @@ less available area than a user with a small phone who decreases font size and z
 If you disregard this fact some users will at best have a design which appears 
 broken, like text in a button wrapping to a second line, or be unable to use your 
 app, like when a button is placed at the bottom of the design, but the content above fills the entire screen.
+
+TODO
+Modal backdrop isn't rendering properly on mobile due to mobile navbars.
 */
 
 
@@ -363,7 +366,7 @@ export function TechBentoGrid() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedSkill(null)}
-              className="fixed inset-0 z-40 bg-foreground/40 backdrop-brightness-90 -top-[30dvh] -bottom-[30dvh]"
+              className="fixed inset-0 z-40 bg-foreground/40 md:backdrop-blur-sm -top-[30dvh] -bottom-[30dvh]"
             >
 
               {/* Expanded Card/Modal */}
