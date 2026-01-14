@@ -366,7 +366,7 @@ export function TechBentoGrid() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedSkill(null)}
-              className="fixed inset-0 z-40 bg-foreground/40 md:backdrop-blur-sm -top-[30dvh] -bottom-[30dvh]"
+              className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm -top-[30dvh] -bottom-[30dvh]"
             >
 
               {/* Expanded Card/Modal */}
