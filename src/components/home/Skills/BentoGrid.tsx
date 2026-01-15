@@ -36,6 +36,9 @@ app, like when a button is placed at the bottom of the design, but the content a
 
 TODO
 Modal backdrop isn't rendering properly on mobile due to mobile navbars.
+
+TODO
+Reduced Motion detection
 */
 
 
@@ -235,16 +238,16 @@ const LAYOUT_ORDERS: { [k: string]: { tech: Skill, gridClass: string }[] } = {
   desktop: [
     { tech: SKILLS[SKILL_ID.REACT], gridClass: "col-span-3 row-span-4" },
     { tech: SKILLS[SKILL_ID.HTML], gridClass: "col-span-1 row-span-2" },
-    { tech: SKILLS[SKILL_ID.CSS], gridClass: "col-span-2 row-span-3" },
-    { tech: SKILLS[SKILL_ID.FIGMA], gridClass: "col-span-2 row-span-3" },
-    { tech: SKILLS[SKILL_ID.GIT], gridClass: "col-span-1 row-span-1" },
+    { tech: SKILLS[SKILL_ID.CSS], gridClass: "col-span-2 row-span-4" },
+    { tech: SKILLS[SKILL_ID.FIGMA], gridClass: "col-span-2 row-span-4" },
+    { tech: SKILLS[SKILL_ID.GIT], gridClass: "col-span-1 row-span-2" },
     { tech: SKILLS[SKILL_ID.TYPESCRIPT], gridClass: "col-span-5 row-span-3" },
     { tech: SKILLS[SKILL_ID.NEXTJS], gridClass: "col-span-2 row-span-3" },
-    { tech: SKILLS[SKILL_ID.SQL], gridClass: "col-span-1 row-span-2" },
+    { tech: SKILLS[SKILL_ID.SQL], gridClass: "col-span-1 row-span-3" },
     { tech: SKILLS[SKILL_ID.RUST], gridClass: "col-span-2 row-span-3" },
     { tech: SKILLS[SKILL_ID.PYTHON], gridClass: "col-span-4 row-span-3" },
     { tech: SKILLS[SKILL_ID.CPP], gridClass: "col-span-2 row-span-2" },
-    { tech: SKILLS[SKILL_ID.ASTRO], gridClass: "col-span-2 row-span-2" },
+    { tech: SKILLS[SKILL_ID.ASTRO], gridClass: "col-span-2 row-span-3" },
     { tech: SKILLS[SKILL_ID.GCP], gridClass: "col-span-1 row-span-2" },
     { tech: SKILLS[SKILL_ID.AWS], gridClass: "col-span-3 row-span-2" },
     { tech: SKILLS[SKILL_ID.NODEJS], gridClass: "col-span-2 row-span-2" },
@@ -284,8 +287,9 @@ export function Techbox(skill: RenderedSkill, gridClass: string, onClick: (s: Re
               group relative bg-paper-100 border-2 border-border
               hover:border-accent hover:bg-secondary
               transition-colors duration-200 cursor-pointer
-              flex flex-col items-center justify-center gap-2 p-4
+              flex flex-col items-center justify-center gap-2 p-1 md:p-3s
               focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-background
+              overflow-clip wrap-anywhere
             `}
     >
       {/* Blueprint corner markers */}
@@ -351,7 +355,7 @@ export function TechBentoGrid() {
       <div className="hidden md:grid grid-cols-8 auto-rows-[80px] gap-3 mx-auto">
         {LAYOUT_ORDERS["desktop"].map(({ tech, gridClass }, idx) => Techbox({ ...tech, numberLabel: `TECH-${idx + 1}`, id: `desktop-${tech.id}` }, gridClass, setSelectedSkill))}
       </div>
-      <div className="grid grid-cols-6 auto-rows-[80px] gap-3 mx-auto md:hidden">
+      <div className="grid grid-cols-6 auto-cols-[minmax(80px,auto)] auto-rows-[minmax(80px,auto)] gap-3 mx-auto md:hidden">
         {LAYOUT_ORDERS["mobile"].map(({ tech, gridClass }, idx) => Techbox({ ...tech, numberLabel: `TECH-${idx + 1}`, id: `mobile-${tech.id}` }, gridClass, setSelectedSkill))}
       </div>
 

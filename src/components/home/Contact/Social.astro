@@ -17,11 +17,13 @@ const { Icon, socialMedia, handle, url } = Astro.props;
         <Icon size={32} />
     </div>
     <div>
-        <div class="text-xs text-[#8b6f47] mb-1 uppercase">{socialMedia}</div>
+        <div class="text-xs text-[#8b6f47] mb-1 uppercase">
+            {socialMedia}
+        </div>
         <a
             href={url}
             target="_blank"
-            class="text-ink hover:text-[#8b6f47] transition-colors"
+            class="text-ink hover:text-[#8b6f47] transition-colors wrap-anywhere"
         >
             {handle}
         </a>
